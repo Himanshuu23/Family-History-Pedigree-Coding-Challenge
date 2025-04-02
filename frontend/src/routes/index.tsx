@@ -1,6 +1,6 @@
 // import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import QuestionnairePage from '../pages/QuestionnairePage';
+import QuestionnairePage from '../pages/Questionnaire';
 import Dashboard from '../pages/Dashboard';
 
 import { useAuth } from '../context/AuthContext';
