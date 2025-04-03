@@ -10,18 +10,41 @@ export const addFamilyMember = async (
   next: NextFunction
 ) => {
   try {
-    const {emailId, name, relation, birthYear} = req.body;
+    const {
+      relation,
+      name,
+      age,
+      gender,
+      isAlive,
+      hasDiabetes,
+      diabetesDetails,
+      hasHeartDisease,
+      heartDiseaseDetails,
+      hasCancer,
+      cancerDetails,
+      otherConditions,
+      emailId
+    } = req.body;
 
-    if (!emailId || !name || !relation || !birthYear) {
+    if (!relation || !name || !emailId) {
       res.status(400).json({error: "Missing required fields"});
       return;
     }
 
     await db.collection(FAMILY_COLLECTION).add({
       emailId,
-      name,
       relation,
-      birthYear,
+      name,
+      age,
+      gender,
+      isAlive,
+      hasDiabetes,
+      diabetesDetails,
+      hasHeartDisease,
+      heartDiseaseDetails,
+      hasCancer,
+      cancerDetails,
+      otherConditions,
       createdAt: new Date(),
     });
 
