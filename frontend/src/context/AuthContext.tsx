@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import { auth } from '../firebase/config';
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { auth } from "../firebase/config";
 import {
   User,
   onAuthStateChanged,
@@ -7,7 +7,7 @@ import {
   signOut,
   GoogleAuthProvider,
   signInWithPopup,
-} from 'firebase/auth';
+} from "firebase/auth";
 
 interface AuthContextType {
   user: User | null;
@@ -16,13 +16,17 @@ interface AuthContextType {
   logout: () => Promise<void>;
 }
 
-const AuthContext = createContext<AuthContextType>({} as AuthContextType);
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, setUser);
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      setLoading(false);
+    });
     return () => unsubscribe();
   }, []);
 
@@ -37,6 +41,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const logout = () => signOut(auth);
 
+  if (loading) return <div>Loading...</div>;
+
   return (
     <AuthContext.Provider value={{ user, login, loginWithGoogle, logout }}>
       {children}
@@ -44,4 +50,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export const useAuth = () => useContext(AuthContext);
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return context;
+};

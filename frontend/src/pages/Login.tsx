@@ -1,4 +1,3 @@
-// import React, { useState } from "react";
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +8,7 @@ import {
   Typography,
   Stack,
   Divider,
+  Paper,
 } from "@mui/material";
 
 const Login = () => {
@@ -21,10 +21,10 @@ const Login = () => {
     try {
       await login(email, password);
       navigate("/");
-    } catch (err: unknown) {
+    } catch (err) {
       const error = err as Error;
       console.error("Login error:", error);
-      alert("Login failed due to " + error.message);
+      alert("Login failed: " + error.message);
     }
   };
 
@@ -32,38 +32,44 @@ const Login = () => {
     try {
       await loginWithGoogle();
       navigate("/");
-    } catch (err: unknown) {
+    } catch (err) {
       const error = err as Error;
       console.error("Google login error:", error);
-      alert("Google login failed due to " + error.message);
+      alert("Google login failed: " + error.message);
     }
   };
 
   return (
-    <Box maxWidth={400} mx="auto" mt={6}>
-      <Typography variant="h4" gutterBottom>
-        Login
-      </Typography>
-      <Stack spacing={2}>
-        <TextField
-          label="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <TextField
-          label="Password"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <Button variant="contained" onClick={handleLogin}>
+    <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh" bgcolor="#f4f4f4">
+      <Paper elevation={3} sx={{ padding: 4, width: 350, bgcolor: "white" }}>
+        <Typography variant="h4" gutterBottom textAlign="center">
           Login
-        </Button>
-        <Divider>OR</Divider>
-        <Button variant="outlined" onClick={handleGoogle}>
-          Sign in with Google
-        </Button>
-      </Stack>
+        </Typography>
+        <Stack spacing={2}>
+          <TextField
+            label="Email"
+            variant="outlined"
+            fullWidth
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <TextField
+            label="Password"
+            type="password"
+            variant="outlined"
+            fullWidth
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <Button variant="contained" color="primary" fullWidth onClick={handleLogin}>
+            Login
+          </Button>
+          <Divider>OR</Divider>
+          <Button variant="outlined" color="secondary" fullWidth onClick={handleGoogle}>
+            Sign in with Google
+          </Button>
+        </Stack>
+      </Paper>
     </Box>
   );
 };

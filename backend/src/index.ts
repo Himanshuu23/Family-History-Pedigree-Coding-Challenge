@@ -1,15 +1,14 @@
-import express from 'express';
-import cors from 'cors';
-import * as functions from 'firebase-functions/v2/https';
-import questionnaireRoutes from './routes/questionnaire.routes';
+import express from "express";
+import cors from "cors";
+import familyRoutes from "./routes/user.routes";
 
 const app = express();
 
-app.use(cors({ origin: true }));
+// Middleware
+app.use(cors());
 app.use(express.json());
+app.use("/family", familyRoutes); // Register family routes
 
-// Mount routes
-app.use('/api/questionnaires', questionnaireRoutes);
+export default app;
 
-// Export Firebase Function v2
-export const api = functions.onRequest({ cors: true }, app);
+//http://localhost:8080/v1/projects/backendx2025/databases/(default)/documents/family

@@ -1,13 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
+import { getFamilyTree } from "../services/familyApi";
 
 const AdminDashboard: React.FC = () => {
   const [submissions, setSubmissions] = useState<any[]>([]);
+  const token = "your_auth_token"; // Replace with actual token
 
   useEffect(() => {
-    fetch('/api/get-submissions')
-      .then((res) => res.json())
-      .then((data) => setSubmissions(data))
-      .catch((err) => console.error(err));
+    const fetchSubmissions = async () => {
+      try {
+        const data = await getFamilyTree(token);
+        setSubmissions(data);
+      } catch (error) {
+        console.error("Error fetching submissions:", error);
+      }
+    };
+
+    fetchSubmissions();
   }, []);
 
   return (
@@ -19,7 +27,9 @@ const AdminDashboard: React.FC = () => {
         ) : (
           <ul>
             {submissions.map((entry, index) => (
-              <li key={index}>{entry.name}: {JSON.stringify(entry.answers)}</li>
+              <li key={index}>
+                {entry.name}: {JSON.stringify(entry.answers)}
+              </li>
             ))}
           </ul>
         )}
