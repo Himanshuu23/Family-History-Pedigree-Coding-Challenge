@@ -16,7 +16,6 @@ body {
   margin: 0;
   padding: 0;
   color: var(--text-dark);
-  overflow-y: hidden;
 }
 
 /* Hero.css */
@@ -352,4 +351,337 @@ body {
   background-color: #cbd5e0;
   cursor: not-allowed;
   transform: none;
+}
+
+.admin-dashboard {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.admin-dashboard h2 {
+  color: #4a4a4a;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.family-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.family-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.family-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.avatar {
+  font-size: 3rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.family-card h3 {
+  color: #3a3a3a;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.family-card p {
+  color: #666;
+  margin: 0.3rem 0;
+}
+
+.health-info {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+}
+
+.health-info h4 {
+  color: #4a4a4a;
+  margin-bottom: 0.5rem;
+}
+
+.card-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+}
+
+.export-btn {
+  background: #4CAF50;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.export-btn:hover {
+  background: #3e8e41;
+}
+
+.delete-btn {
+  background: #f44336;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.delete-btn:hover {
+  background: #d32f2f;
+}
+
+/* Family Tree Styles */
+.family-tree-container {
+  padding: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.tree-wrapper {
+  position: relative;
+  margin-top: 2rem;
+}
+
+.pedigree-tree {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.pedigree-tree .link {
+  stroke-width: 2px;
+}
+
+.member-tooltip {
+  position: fixed;
+  background: white;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index: 100;
+  width: 250px;
+  pointer-events: none;
+}
+
+.tooltip-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.tooltip-avatar {
+  font-size: 2rem;
+}
+
+.tooltip-body {
+  color: #555;
+}
+
+.tooltip-body p {
+  margin: 0.5rem 0;
+}
+
+.health-info {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+}
+
+.health-info h4 {
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.pedigree-container {
+  position: relative;
+  font-family: sans-serif;
+}
+
+.link {
+  stroke-width: 2px;
+}
+
+.pedigree-tooltip {
+  position: absolute;
+  display: flex;
+  background: white;
+  border: 1px solid #ccc;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
+  padding: 10px;
+  border-radius: 8px;
+  z-index: 100;
+  pointer-events: none;
+  width: 280px;
+}
+
+.pedigree-tooltip img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-right: 10px;
+  object-fit: cover;
+}
+
+.pedigree-tooltip .info {
+  flex: 1;
+}
+
+.pedigree-tooltip p {
+  margin: 2px 0;
+}
+
+/* Pedigree Tree Styles */
+.pedigree-container {
+  padding: 2rem;
+  position: relative;
+  font-family: 'Calibri', sans-serif;
+}
+
+.pedigree-header {
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.pedigree-header h2 {
+  color: #1e3a2b;
+  margin: 0.5rem 0 0;
+  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 600;
+}
+
+.pedigree-icon {
+  font-size: 2rem;
+}
+
+.pedigree-content {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  overflow: auto;
+}
+
+.pedigree-svg {
+  display: block;
+  margin: 0 auto;
+  border-radius: 8px;
+  background: #f8faf7;
+}
+
+/* Node Styles */
+.node {
+  cursor: pointer;
+}
+
+.node circle {
+  stroke: #fff;
+  stroke-width: 3px;
+}
+
+.node-name {
+  dy: -25px;
+  text-anchor: middle;
+  fill: #2d3748;
+  font-weight: 600;
+  font-size: 14px;
+  font-family: 'Calibri', sans-serif;
+  paint-order: stroke;
+  stroke: #ffffff;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.node-relation {
+  dy: 35px;
+  text-anchor: middle;
+  fill: #666;
+  font-size: 12px;
+  font-family: 'Calibri', sans-serif;
+}
+
+/* Link Styles */
+.link {
+  stroke: url(#link-gradient);
+  stroke-width: 3;
+  fill: none;
+  stroke-opacity: 0.7;
+}
+
+/* Tooltip Styles */
+.pedigree-tooltip {
+  position: fixed;
+  background: white;
+  border-radius: 12px;
+  padding: 1.25rem;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  pointer-events: none;
+  min-width: 240px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.2s ease-out forwards;
+}
+
+.pedigree-tooltip h4 {
+  margin: 0 0 0.75rem;
+  color: #1e3a2b;
+  font-size: 1.1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tooltip-grid {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.tooltip-row {
+  display: flex;
+}
+
+.tooltip-label {
+  flex: 0 0 80px;
+  color: #666;
+}
+
+.status-alive {
+  color: #1e9b5b;
+  font-weight: 500;
+}
+
+.status-deceased {
+  color: #9E9E9E;
+  font-weight: 500;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }

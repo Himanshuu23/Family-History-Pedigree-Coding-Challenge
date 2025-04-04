@@ -2,18 +2,14 @@ import express from "express";
 // import {authMiddleware} from "../middlewares/auth";
 import {
   addFamilyMember,
-  getFamilyTree,
-  updateFamilyMember,
-  deleteFamilyMember,
-} from "../services/user.service";
+  getFamilyMember,
+} from "../services/family.service";
 
 const router = express.Router();
 
 // router.use(authMiddleware);
 
 router.post("/", addFamilyMember);
-router.get("/", getFamilyTree);
-router.put("/", updateFamilyMember);
-router.delete("/", deleteFamilyMember);
+router.get("/", getFamilyMember);
 
 export default router;

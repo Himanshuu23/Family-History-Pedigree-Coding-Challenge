@@ -1,7 +1,19 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import '../index.css';
 
 const Hero = () => {
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleAuthAction = async () => {
+    if (user) {
+      await logout();
+    } else {
+      navigate('/login');
+    }
+  };
+
   return (
     <div id="hero" className="hero-container">
       <div className="hero-background"></div>
@@ -17,9 +29,9 @@ const Hero = () => {
           <Link to="/questionnaire" className="hero-button primary">
             Get Started &gt;
           </Link>
-          <a href="#demo" className="hero-button secondary">
-            Demo &gt;
-          </a>
+          <button className="hero-button secondary" onClick={handleAuthAction}>
+            {user ? 'Logout >' : 'Login >'}
+          </button>
         </div>
       </div>
       <div className="hero-image-section">

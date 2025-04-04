@@ -1,4 +1,5 @@
 import React from 'react';
+import "../index.css";
 
 interface QuestionCardProps {
   question: { id: number; text: string };
@@ -7,12 +8,19 @@ interface QuestionCardProps {
 
 const QuestionCard: React.FC<QuestionCardProps> = ({ question, onAnswer }) => {
   return (
-    <div className="card">
-      <h2>{question.text}</h2>
-      <div className="button-group">
-        <button className="button button-yes" onClick={() => onAnswer('Yes')}>✅ Yes</button>
-        <button className="button button-no" onClick={() => onAnswer('No')}>❌ No</button>
-      </div>
+    <div className="yes-no-buttons">
+      <button 
+        className="answer-button yes" 
+        onClick={() => onAnswer('Yes')}
+      >
+        ✅ Yes
+      </button>
+      <button 
+        className="answer-button no" 
+        onClick={() => onAnswer('No')}
+      >
+        ❌ No
+      </button>
     </div>
   );
 };
