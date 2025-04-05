@@ -1,4 +1,3 @@
-import React from "react";
 import { jsPDF } from "jspdf";
 import "../index.css";
 import { FamilyMember } from "../types/member";

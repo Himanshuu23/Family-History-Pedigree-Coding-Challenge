@@ -6,7 +6,7 @@ import Home from "../pages/HomePage";
 import QuestionnairePage from "../pages/Questionnaire";
 import Dashboard from "../pages/Dashboard";
 import Login from "../pages/Login";
-import FamilyPedigreeView from "../sections/Pedigree";
+import FamilyPedigreeView from "../pages/Pedigree";
 
 interface RouterProps {
   familyData: FamilyMember[];

@@ -1,5 +1,3 @@
-// components/QuestionCard.tsx
-import React from 'react';
 import "../index.css";
 
 interface QuestionCardProps {
