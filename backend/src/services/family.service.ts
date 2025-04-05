@@ -1,15 +1,13 @@
 import { Request, Response, NextFunction } from "express";
-import { getFirestore } from "firebase-admin/firestore";
 import { createClient } from "redis";
+import { db } from "../firestore";
 
 const FAMILY_COLLECTION = "family";
-const db = getFirestore();
 const redisClient = createClient();
 redisClient.connect();
 
-const CACHE_EXPIRATION = 3600; // 1 hour
+const CACHE_EXPIRATION = 3600;
 
-// Add new family member
 export const addFamilyMember = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { emailId, relation, name, age, gender, isAlive, hasDiabetes, diabetesDetails, hasHeartDisease, heartDiseaseDetails, hasCancer, cancerDetails, otherConditions } = req.body;
@@ -23,7 +21,7 @@ export const addFamilyMember = async (req: Request, res: Response, next: NextFun
       emailId, relation, name, age, gender, isAlive, hasDiabetes, diabetesDetails, hasHeartDisease, heartDiseaseDetails, hasCancer, cancerDetails, otherConditions, createdAt: new Date(),
     });
 
-    await redisClient.del(emailId); // Clear cache for updated data
+    await redisClient.del(emailId);
 
     res.status(201).json({ id: docRef.id, message: "Family member added successfully" });
   } catch (error) {
@@ -31,40 +29,6 @@ export const addFamilyMember = async (req: Request, res: Response, next: NextFun
   }
 };
 
-// Get single family member by ID (with Redis caching)
-export const getFamilyMember = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const { emailId, id } = req.body;
-
-    if (!emailId || !id) {
-      res.status(400).json({ error: "Email ID and document ID are required" });
-      return;
-    }
-
-    const cachedData = await redisClient.get(`familyMember:${id}`);
-    if (cachedData) {
-      res.status(200).json(JSON.parse(cachedData));
-      return;
-    }
-
-    const docRef = db.collection(FAMILY_COLLECTION).doc(id);
-    const doc = await docRef.get();
-
-    if (!doc.exists || doc.data()?.emailId !== emailId) {
-      res.status(404).json({ error: "Family member not found or unauthorized" });
-      return;
-    }
-
-    const familyMember = { id: doc.id, ...doc.data() };
-    await redisClient.setEx(`familyMember:${id}`, CACHE_EXPIRATION, JSON.stringify(familyMember));
-
-    res.status(200).json(familyMember);
-  } catch (error) {
-    next(error);
-  }
-};
-
-// Get all family members for a user (with Redis caching)
 export const getAllFamilyMembers = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { emailId } = req.body;
@@ -91,7 +55,6 @@ export const getAllFamilyMembers = async (req: Request, res: Response, next: Nex
   }
 };
 
-// Get family tree structure (with Redis caching)
 export const getFamilyTree = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { emailId } = req.body;
